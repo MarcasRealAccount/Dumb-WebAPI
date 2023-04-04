@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>What do you think?</title>
+	</head>
+	<body>
+		<h2>This page is stupid...</h2>
+		<script>
+			let voices = speechSynthesis.getVoices();
+			
+			function random(min, max) {
+				return Math.random() * (max - min) + min;
+			}
+			
+			function randomInt(min, max) {
+				return Math.floor(random(min, max));
+			}
+			
+			function stupid() {
+				if (voices.length == 0) {
+					voices = speechSynthesis.getVoices();
+				}
+			
+				let voiceIndex = randomInt(0, voices.length);
+				let pitch      = random(0.0, 2.0);
+				let rate       = Math.pow(random(0.2154434690031884, 1.0), 3) * 10.0;
+				
+				let voice = voices[voiceIndex];
+				
+				let utter = new SpeechSynthesisUtterance("Trolololololololo")
+				utter.voice = voice;
+				utter.pitch = pitch;
+				utter.rate  = rate;
+				utter.onend = (event) => { stupid(); };
+				speechSynthesis.speak(utter);
+			}
+			
+			stupid();
+		</script>
+	</body>
+</html>
